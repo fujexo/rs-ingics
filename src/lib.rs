@@ -43,7 +43,7 @@ impl PartialEq for SensorReading {
     }
 }
 
-pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
+pub fn parse_data(data: &[u8]) -> Option<SensorReading> {
     // match the Sensor Subtype byte from https://www.ingics.com/doc/Beacon/BC0034_iBS_Sensor_Beacon_Payload.pdf
     match data[11] {
         0x10 => {
@@ -57,15 +57,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: None,
                 ext_temperature: None,
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         //0x12 => debug!("Sensor type: {:?}, Data: {:x?}", "iBS03P", data),
@@ -81,15 +81,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {distance}mm, {battery}V");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: None,
                 ext_temperature: None,
                 humidity: None,
                 distance: Some(distance),
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         0x14 => {
@@ -105,15 +105,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {temperature}°C, {humidity}%, {battery}V");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: Some(temperature),
                 ext_temperature: None,
                 humidity: Some(humidity),
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         //0x15 => debug!("Sensor type: {:?}, Data: {:x?}", "iBS03T)", data),
@@ -128,15 +128,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: None,
                 ext_temperature: None,
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         0x17 => {
@@ -152,15 +152,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {temperature}°C, Ext: {ext_temperature}°C");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: Some(temperature),
                 ext_temperature: Some(ext_temperature),
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         //0x18 => debug!("Sensor type: {:?}, Data: {:x?}", "iBS04i", data),
@@ -176,15 +176,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: None,
                 ext_temperature: None,
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         0x31 => {
@@ -198,15 +198,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: None,
                 ext_temperature: None,
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         0x32 => {
@@ -220,15 +220,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: Some(temperature),
                 ext_temperature: None,
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         0x33 => {
@@ -241,15 +241,15 @@ pub fn parse_data(data: &Vec<u8>) -> Option<SensorReading> {
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
 
             Some(SensorReading {
-                sensor_type: sensor_type,
+                sensor_type,
                 time: Utc::now(),
                 temperature: None,
                 ext_temperature: None,
                 humidity: None,
                 distance: None,
-                battery: battery,
-                userdata: userdata,
-                event_status: event_status,
+                battery,
+                userdata,
+                event_status,
             })
         }
         //0x40 => debug!("Sensor type: {:?}, Data: {:x?}", "iBS06", data),
