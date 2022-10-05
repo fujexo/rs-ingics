@@ -11,3 +11,9 @@ updates:
       interval: "daily"
     commit-message:
       prefix: "chore(ci): "
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
