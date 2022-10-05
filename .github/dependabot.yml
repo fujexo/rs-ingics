@@ -16,5 +16,5 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-commit-message:
+    commit-message:
       prefix: "chore(ci): "
