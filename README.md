@@ -1,5 +1,7 @@
 # Ingics
 
+![Build and Tests](https://github.com/fujexo/rs-ingics/actions/workflows/test.yml/badge.svg)
+
 A rust library to parse the manufacturer data of [Ingics BLE Sensors](https://www.ingics.com/tag.html).
 
 ## Usage
@@ -8,7 +10,7 @@ Add this to your Cargo.toml:
 
 ```toml
 [dependencies]
-ingics = "0.1.0"
+ingics = "0.1.1"
 ```
 
 ### Examples
