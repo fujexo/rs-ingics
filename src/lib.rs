@@ -43,6 +43,12 @@ impl PartialEq for SensorReading {
     }
 }
 
+fn get_temperature(first_byte: u8, second_byte: u8) -> f32 {
+    let temperature = convert_byte(first_byte, second_byte) as i16;
+
+    temperature as f32 / 100.0
+}
+
 pub fn parse_data(data: &[u8]) -> Option<SensorReading> {
     // match the Sensor Subtype byte from https://www.ingics.com/doc/Beacon/BC0034_iBS_Sensor_Beacon_Payload.pdf
     match data[11] {
@@ -98,7 +104,7 @@ pub fn parse_data(data: &[u8]) -> Option<SensorReading> {
 
             let battery = convert_byte(data[2], data[3]) as f32 / 100.0;
             let event_status = data[4];
-            let temperature = convert_byte(data[5], data[6]) as f32 / 100.0;
+            let temperature = get_temperature(data[5], data[6]);
             let humidity = convert_byte(data[7], data[8]);
             let userdata = convert_byte(data[9], data[10]);
 
@@ -144,7 +150,7 @@ pub fn parse_data(data: &[u8]) -> Option<SensorReading> {
             //debug!("Sensor type: {:?}, Data: {:x?}", sensor_type, data);
 
             let battery = convert_byte(data[2], data[3]) as f32 / 100.0;
-            let temperature = convert_byte(data[5], data[6]) as f32 / 100.0;
+            let temperature = get_temperature(data[5], data[6]);
             let ext_temperature = convert_byte(data[7], data[8]) as f32 / 100.0;
             let userdata = convert_byte(data[9], data[10]);
             let event_status = data[4];
@@ -214,7 +220,7 @@ pub fn parse_data(data: &[u8]) -> Option<SensorReading> {
 
             let battery = convert_byte(data[2], data[3]) as f32 / 100.0;
             let userdata = convert_byte(data[9], data[10]);
-            let temperature = convert_byte(data[5], data[6]) as f32 / 100.0;
+            let temperature = get_temperature(data[5], data[6]);
             let event_status = data[4];
 
             debug!("Sensor {sensor_type} {userdata}: {event_status}");
@@ -302,6 +308,12 @@ mod tests {
         assert_eq!(convert_byte(0x19, 0x01), 0x0119);
     }
 
+    #[test]
+    fn test_get_temperature() {
+        assert_eq!(get_temperature(0xA1, 0x0A), 27.21);
+        assert_eq!(get_temperature(0x49, 0xFD), -6.95);
+    }
+
     model_tests! {
         // iBS03R, Batt: 0x0117 (2.79V), Range: 0x0119 (281 mm)
         parser_ibs03r: ("83BC170100AAAA19010000130B0600", SensorReading {
@@ -324,6 +336,18 @@ mod tests {
             humidity: Some(64),
             distance: None,
             battery: 3.3,
+            userdata: 0,
+            event_status: 00,
+        }),
+        // iBS03T, Batt: 0x014A (3.18V), Temp: 0x0AA1 (-6.95), RH: 32%
+        parser_ibs03t_rh_neg_temp: ("83BC3E010049FD2000000014030000", SensorReading {
+            sensor_type: "iBS03T_RH".to_string(),
+            time: Utc::now(),
+            temperature: Some(-6.95),
+            ext_temperature: None,
+            humidity: Some(32),
+            distance: None,
+            battery: 3.18,
             userdata: 0,
             event_status: 00,
         }),
