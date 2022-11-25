@@ -21,7 +21,7 @@ chrono = "0.4.22"
 log = "0.4.17"
 
 [dev-dependencies]
-env_logger = "0.9.0"
+env_logger = "0.10.0"
 futures = "0.3"
 bluer = { version = "0.15.0", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
