@@ -1,6 +1,6 @@
 [package]
 name = "ingics"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Philipp Marmet  <fujexo@c0d3.ch>"]
 description = "This crate provides a parser for various Ingics iBS Sensors."
