@@ -16,13 +16,13 @@ full = ["influxdb"]
 influxdb = []
 
 [dependencies]
-influxdb = { version = "0.7.0", features = ["derive"] }
-chrono = "0.4.22"
-log = "0.4.17"
+influxdb = { version = "0.7.2", features = ["derive"] }
+chrono = "0.4.38"
+log = "0.4.21"
 
 [dev-dependencies]
-env_logger = "0.11.0"
+env_logger = "0.11.3"
 futures = "0.3"
-bluer = { version = "0.17.0", features = ["full"] }
+bluer = { version = "0.17.1", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
-influxdb = "0.7.0"
+influxdb = "0.7.2"
